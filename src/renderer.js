@@ -5,7 +5,9 @@ async function counter() {
     let countdown = document.getElementById("seconds")
     countdownInterval = setInterval(() => {
         countdown.textContent = count
-        count++
+        if(count < 25) {
+            count++
+        }
     }, 1000)
 }
 
