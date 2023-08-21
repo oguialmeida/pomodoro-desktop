@@ -1,10 +1,6 @@
 let count = 1
 let countdownInterval 
 
-function sleep(msTime) {
-    return new Promise(resolve => setTimeout(resolve, msTime))
-}
-
 async function counter() {
     let countdown = document.getElementById("seconds")
     countdownInterval = setInterval(() => {
