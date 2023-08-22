@@ -8,9 +8,11 @@ async function counter() {
     
     countdownInterval = setInterval(() => {
         let dateObj = new Date(count * 1000)
-        let minutes = dateObj.getMinutes()
-        let seconds = dateObj.getSeconds()
+        let minutes = dateObj.getMinutes().toString().padStart(2, '0')
+        let seconds = dateObj.getSeconds().toString().padStart(2, '0')
+
         countdown.textContent = `${minutes}:${seconds}`
+
         if(count < 1500) {
             count++
         } else if(count === 1500) {
@@ -27,7 +29,7 @@ function pause() {
 function reset() {
     clearInterval(countdownInterval)
     count = 1
-    document.getElementById("seconds").textContent = 0
+    document.getElementById("seconds").textContent = "00:00"
     document.getElementById("over").textContent = ""
     document.querySelector("body").style.backgroundColor = "#0085ff"
 }
