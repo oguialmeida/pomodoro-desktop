@@ -1,9 +1,9 @@
-// O módulo app controla elementos de ciclo de vida da sua aplicação
-// O módulo BrowserWindow cria e gerencia as janelas da aplicação 
+// The app module controls life cycle elements of its application
+// The BrowserWindow module creates and manages the application windows
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-// Carrega o arquivo html em uma nova instancia do BrowserWindow
+// Load the HTML file in a new browserwindow instance
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
@@ -16,17 +16,17 @@ const createWindow = () => {
     win.loadFile('./src/index.html')
 }
 
-// A criação das janelas só podem ser criadas após o módulo app disparar o ready (por isso o uso da promise)
+// Windows can only be created after the app module trigger Ready (Use of Promise)
 app.whenReady().then(() => {
     createWindow()
 
-    // Para caso esteja aberto sem janela ele abra alguma
+    // If open without a window, this will create a new window
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 })
 
-// Fechar a janela direitinho no mac
+// Close the window in the way right on Mac
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })

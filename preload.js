@@ -1,4 +1,4 @@
-// Necessário para a manipulação do DOM
+// Necessary for the handling with DOM
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector)
