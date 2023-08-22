@@ -3,47 +3,58 @@ let countdownInterval
 
 async function counter() {
     let countdown = document.getElementById("seconds")
+    let over = document.getElementById("over")
+    let background = document.querySelector("body")
+    
     countdownInterval = setInterval(() => {
-        countdown.textContent = count
-        if(count < 25) {
+        let dateObj = new Date(count * 1000)
+        let minutes = dateObj.getMinutes()
+        let seconds = dateObj.getSeconds()
+        countdown.textContent = `${minutes}:${seconds}`
+        if(count < 1500) {
             count++
+        } else if(count === 1500) {
+            over.textContent = "Let's take a break :)"
+            background.style.backgroundColor = "#38BDAE"
         }
-    }, 1000)
+    }, 10)
 }
 
 function pause() {
     clearInterval(countdownInterval)
 }
 
-function stop() {
+function reset() {
     clearInterval(countdownInterval)
     count = 1
     document.getElementById("seconds").textContent = 0
+    document.getElementById("over").textContent = ""
+    document.querySelector("body").style.backgroundColor = "#0085ff"
 }
 
 (function startTimer() {
     let buttonStart = document.getElementById("start")
     let buttonPause = document.getElementById("pause")
-    let buttonStop = document.getElementById("stop")
+    let buttonReset = document.getElementById("reset")
 
     buttonStart.onclick = () => {
         buttonStart.disabled=true
         buttonPause.disabled=false
-        buttonStop.disabled=false
+        buttonReset.disabled=false
         counter()
     }
 
     buttonPause.onclick = () => {
         buttonStart.disabled=false
         buttonPause.disabled=true
-        buttonStop.disabled=false
+        buttonReset.disabled=false
         pause()
     }
 
-    buttonStop.onclick = () => {
+    buttonReset.onclick = () => {
         buttonStart.disabled=false
         buttonPause.disabled=true
-        buttonStop.disabled=true
-        stop()
+        buttonReset.disabled=true
+        reset()
     }
 }())
