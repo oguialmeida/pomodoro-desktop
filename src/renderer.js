@@ -1,5 +1,5 @@
-let count = 1
-let totalCount = 1
+let count = 0
+let totalCount = 0
 let countdownInterval
 
 function pause() {
@@ -8,7 +8,7 @@ function pause() {
 
 function reset() {
     clearInterval(countdownInterval)
-    count = 1
+    count = 0
     document.getElementById("seconds").textContent = "00:00"
     document.getElementById("over").textContent = ""
     document.querySelector("body").style.backgroundColor = "#0085ff"
@@ -16,7 +16,7 @@ function reset() {
 
 function productiveReset() {
     clearInterval(countdownInterval)
-    totalCount = 1
+    totalCount = 0
     document.getElementById("productive").textContent = "00:00:00"
 }
 
@@ -44,7 +44,7 @@ function counter() {
             count++
 
         } else if (count === 1500) {
-            count = 1
+            count = 0
             over.textContent = "Let's take a break :)"
             background.style.backgroundColor = "#38BDAE"
             trocar = true
@@ -62,7 +62,7 @@ function counter() {
         countdown.textContent = formatTime(count, true)
         productive.textContent = formatTime(totalCount)
 
-    }, 10)
+    }, 1000)
 }
 
 (function startTimer() {
