@@ -50,7 +50,7 @@ function counter() {
             trocar = true
         }
 
-        if (trocar === false) {
+        if (!trocar) {
             totalCount++
         }
 
