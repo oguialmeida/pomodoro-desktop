@@ -32,37 +32,34 @@ function formatTime(seconds, formatType = false) {
     return `${hours}:${minutes}:${secs}`
 }
 
-function counter() {
-    let countdown = document.getElementById("seconds")
-    let over = document.getElementById("over")
-    let productive = document.getElementById("productive")
-    let background = document.querySelector("body")
-    let trocar = false
+function setScreen() {
+    count = 0
+    document.getElementById("over").textContent = "Let's take a break :)"
+    document.querySelector("body").style.backgroundColor = "#38BDAE"
+}
 
+function counter(change = false) {
     countdownInterval = setInterval(() => {
+
         if (count < 1500) {
             count++
-
-        } else if (count === 1500) {
-            count = 0
-            over.textContent = "Let's take a break :)"
-            background.style.backgroundColor = "#38BDAE"
-            trocar = true
+        } else {
+            setScreen()
+            change = true
         }
 
-        if (!trocar) {
-            totalCount++
-        }
-
-        if (trocar && count === 300) {
+        if (change && count === 300) {
             reset()
             counter()
         }
 
-        countdown.textContent = formatTime(count, true)
-        productive.textContent = formatTime(totalCount)
+        if (!change) {
+            totalCount++
+        }
+        document.getElementById("seconds").textContent = formatTime(count, true)
+        document.getElementById("productive").textContent = formatTime(totalCount)
 
-    }, 1000)
+    }, 1)
 }
 
 (function startTimer() {
@@ -74,7 +71,7 @@ function counter() {
         buttonStart.disabled = true
         buttonPause.disabled = false
         buttonReset.disabled = false
-        counter()
+        counter(true)
     }
 
     buttonPause.onclick = () => {
