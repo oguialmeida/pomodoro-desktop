@@ -1,15 +1,14 @@
-let count = 0
+let count = 1500
 let totalCount = 0
 let countdownInterval
-
 function pause() {
     clearInterval(countdownInterval)
 }
 
 function reset() {
     clearInterval(countdownInterval)
-    count = 0
-    document.getElementById("seconds").textContent = "00:00"
+    count = 1500
+    document.getElementById("seconds").textContent = "25:00"
     document.getElementById("over").textContent = ""
     document.querySelector("body").style.backgroundColor = "#0085ff"
 }
@@ -26,36 +25,29 @@ function formatTime(seconds, formatType = false) {
     const minutes = dateObj.getUTCMinutes().toString().padStart(2, '0')
     const secs = dateObj.getUTCSeconds().toString().padStart(2, '0')
 
-    if (formatType === true) {
-        return `${minutes}:${secs}`
-    }
+    if (formatType) return `${minutes}:${secs}`
+
     return `${hours}:${minutes}:${secs}`
 }
 
 function setScreen() {
-    count = 0
+    count = 1500
     document.getElementById("over").textContent = "Let's take a break :)"
     document.querySelector("body").style.backgroundColor = "#38BDAE"
 }
 
-function counter(change = false) {
+function counter() {
+    let change = false
+    let pause = document.getElementById("pause")
     countdownInterval = setInterval(() => {
+        if (count > 0) count--
+        
+        else { setScreen(), count = 300, change = true, pause.disabled=true }
 
-        if (count < 1500) {
-            count++
-        } else {
-            setScreen()
-            change = true
-        }
+        if(!change) totalCount++
 
-        if (change && count === 300) {
-            reset()
-            counter()
-        }
+        if (change && count === 0) { reset(), counter(), pause.disabled=false }
 
-        if (!change) {
-            totalCount++
-        }
         document.getElementById("seconds").textContent = formatTime(count, true)
         document.getElementById("productive").textContent = formatTime(totalCount)
 
@@ -71,7 +63,7 @@ function counter(change = false) {
         buttonStart.disabled = true
         buttonPause.disabled = false
         buttonReset.disabled = false
-        counter(true)
+        counter()
     }
 
     buttonPause.onclick = () => {
