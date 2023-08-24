@@ -1,6 +1,7 @@
 let count = 1500
 let totalCount = 0
 let countdownInterval
+
 function pause() {
     clearInterval(countdownInterval)
 }
@@ -40,13 +41,11 @@ function counter() {
     let change = false
     let pause = document.getElementById("pause")
     countdownInterval = setInterval(() => {
-        if (count > 0) count--
-        
-        else { setScreen(), count = 300, change = true, pause.disabled=true }
+        count > 0 ? count-- : (setScreen(), count = 300, change = true, pause.disabled = true)
 
-        if(!change) totalCount++
+        !change ? totalCount++ : null;
 
-        if (change && count === 0) { reset(), counter(), pause.disabled=false }
+        (change && count === 0) ? (reset(), counter(), pause.disabled = false) : null
 
         document.getElementById("seconds").textContent = formatTime(count, true)
         document.getElementById("productive").textContent = formatTime(totalCount)
