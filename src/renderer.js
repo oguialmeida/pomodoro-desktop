@@ -55,7 +55,7 @@ function counter() {
         document.getElementById("seconds").textContent = formatTime(count, true)
         document.getElementById("productive").textContent = formatTime(totalCount)
 
-    }, 1)
+    }, 1000)
 }
 
 (function startTimer() {
