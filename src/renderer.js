@@ -14,6 +14,11 @@ function reset() {
     document.querySelector("body").style.backgroundColor = "#0085ff"
 }
 
+function playAudio() {
+    let audio = new Audio("./assets/quack.mp3")
+    audio.play()
+}
+
 function productiveReset() {
     clearInterval(countdownInterval)
     totalCount = 0
@@ -41,7 +46,7 @@ function counter() {
     let change = false
     let pause = document.getElementById("pause")
     countdownInterval = setInterval(() => {
-        count > 0 ? count-- : (setScreen(), count = 300, change = true, pause.disabled = true)
+        count > 0 ? count-- : (playAudio(), setScreen(), count = 300, change = true, pause.disabled = true)
 
         !change ? totalCount++ : null;
 
